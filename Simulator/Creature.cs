@@ -1,4 +1,4 @@
-﻿namespace Simulator;
+namespace Simulator;
 internal class Creature
 {
     private int level = 1;
@@ -43,5 +43,21 @@ internal class Creature
 
     public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
     public int Upgrade() => level < 10 ? ++level : level;
+    public void Go(Direction direction)
+    {
+        Console.WriteLine($"{name} goes {direction.ToString().ToLower()}.");
+    }
+    public void Go(Direction[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            Go(direction);
+        }
+    }
+    public void Go(string directions)
+    {
+        var parsedDirections = DirectionParser.Parse(directions);
+        Go(parsedDirections);
+    }
     public string Info => $"{Name} [{Level}]";
 }
