@@ -2,14 +2,14 @@ namespace Simulator;
 public class Elf : Creature
 {
     private int agility = 1;
-    private int SingCounter = 0;
+    private int singCounter = 0;
     public int Agility { get => agility; init => agility = Validator.Limiter(value, 0, 10); }
     public override int Power => 8 * Level + 2 * Agility;
     public void Sing()
     {
-        SingCounter++;
+        singCounter++;
         Console.WriteLine($"{Name} is singing.");
-        if (SingCounter % 3 == 0)
+        if (singCounter % 3 == 0)
         {
             if (agility < 10)
             {
