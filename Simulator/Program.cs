@@ -69,6 +69,17 @@ internal class Program
         {
             Console.WriteLine($"{e.Message}");
         }
+           try
+        {
+            Point p3 = new Point(5, 5);
+            Point p4 = new Point(5, 10);
+            Rectangle rect4 = new Rectangle(p3, p4);
+            Console.WriteLine(rect4);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
     static void Lab5b()
     {
