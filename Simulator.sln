@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simulator", "Simulator\Simu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{1330F483-CF52-433D-980D-B918D8371E79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSimulator", "TestSimulator\TestSimulator.csproj", "{BFFD12E2-0FA8-44F2-BA09-9E1B66C7C5F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{556AFA36-09DB-4525-ACFC-1AA21DFCD942}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{556AFA36-09DB-4525-ACFC-1AA21DFCD942}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{556AFA36-09DB-4525-ACFC-1AA21DFCD942}.Release|Any CPU.Build.0 = Release|Any CPU
+				{BFFD12E2-0FA8-44F2-BA09-9E1B66C7C5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFFD12E2-0FA8-44F2-BA09-9E1B66C7C5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFFD12E2-0FA8-44F2-BA09-9E1B66C7C5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFFD12E2-0FA8-44F2-BA09-9E1B66C7C5F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
