@@ -8,7 +8,6 @@ public class Orc : Creature
     public void Hunt()
     {
         huntCounter++;
-        Console.WriteLine($"{Name} is hunting.");
         if (huntCounter % 2 == 0)
         {
             if (rage < 10)

@@ -8,7 +8,6 @@ public class Elf : Creature
     public void Sing()
     {
         singCounter++;
-        Console.WriteLine($"{Name} is singing.");
         if (singCounter % 3 == 0)
         {
             if (agility < 10)
