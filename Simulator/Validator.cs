@@ -1,5 +1,5 @@
 namespace Simulator;
-public static class Validator
+public  class Validator
 {
     public static int Limiter(int value, int min, int max)
     {

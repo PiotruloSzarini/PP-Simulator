@@ -1,4 +1,4 @@
-﻿using Simulator;
+using Simulator;
 using Simulator.Maps;
 using Xunit;
 public class SmallSquareMapTests
