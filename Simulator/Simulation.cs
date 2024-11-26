@@ -26,28 +26,17 @@ public class Simulation
     /// Has all moves been done?
     /// </summary>
     public bool Finished { get; private set; } = false;
+
+    private int _currentMoveIndex = 0;
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    private Creature CurrentCreature
-    {
-        get
-        {
-            int turnIndex = Moves.Length % Creatures.Count;
-            return Creatures[turnIndex];
-        }
-    }
+    public Creature CurrentCreature => Creatures[_currentMoveIndex % Creatures.Count];
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    private string CurrentMoveName
-    {
-        get
-        {
-            if (Moves.Length == 0) throw new InvalidOperationException("No moves left.");
-            return Moves[0].ToString().ToLower();
-        }
-    }
+    public string CurrentMoveName => Moves[_currentMoveIndex].ToString().ToLower();
+    
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
@@ -70,6 +59,17 @@ public class Simulation
         Creatures = creatures;
         Positions = positions;
         Moves = moves ?? throw new ArgumentNullException(nameof(moves));
+    for (int i = 0; i < creatures.Count; i++)
+        {
+            var creature = creatures[i];
+            var position = positions[i];
+            if (!map.Exist(position))
+            {
+                throw new ArgumentException($"Position {position} is outside the bounds of the map.");
+            }
+            creature.InitMapAndPosition(map, position);
+            map.Add(creature, position);
+        }
     }
     /// <summary>
     /// Makes one move of current creature in current direction.
@@ -86,16 +86,17 @@ public class Simulation
             Finished = true;
             return;
         }
-        char currentMoveChar = Moves[0];
-        Moves = Moves.Substring(1);
+        char currentMoveChar = Moves[_currentMoveIndex];
         var directions = DirectionParser.Parse(currentMoveChar.ToString());
-        if (directions.Count == 0)
+        if (directions != null && directions.Count > 0)
         {
             return;
+            var direction = directions[0];
+            CurrentCreature.Go(direction);
         }
-        Direction direction = directions[0];
-        CurrentCreature.Go(direction);
-        if (Moves.Length == 0)
+        // Advance to the next creature and move
+        _currentMoveIndex++;
+        if (_currentMoveIndex >= Moves.Length)
         {
             Finished = true;
         }

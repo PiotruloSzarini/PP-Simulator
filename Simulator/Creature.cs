@@ -23,7 +23,11 @@ public abstract class Creature
         init => level = Validator.Limiter(value, 1, 10);
     }
     public abstract int Power { get; }
-     public void InitMapAndPosition(Map map, Point position) { }
+     public void InitMapAndPosition(Map map, Point position) 
+    {
+        Map = map;
+        Position = position;
+    }
     public Creature() { }
     public Creature(string name, int level = 1)
     {
