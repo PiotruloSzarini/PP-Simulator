@@ -1,4 +1,5 @@
 using Simulator;
+namespace TestSimulator;
 public class ValidatorTests
 {
     [Theory]
@@ -14,7 +15,8 @@ public class ValidatorTests
     [InlineData("T", 2, 10, '#', "T#")]
     [InlineData("This is a very long string", 2, 10, '#', "This is a")]
     [InlineData("", 5, 10, '#', "#####")]
-    [InlineData("   abc", 5, 10, '#', "abc##")]
+    [InlineData("   abc", 5, 10, '#', "Abc##")]
+    [InlineData("A             B", 3, 10, '#', "A##")]
     public void Shortener_ShouldAdjustStringCorrectly(string value, int min, int max, char placeholder, string expected)
     {
         Assert.Equal(expected, Validator.Shortener(value, min, max, placeholder));

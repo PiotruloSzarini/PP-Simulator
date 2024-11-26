@@ -1,52 +1,60 @@
 ﻿using Simulator;
 using Simulator.Maps;
-using Xunit;
+namespace TestSimulator;
 public class SmallSquareMapTests
 {
     [Fact]
     public void Constructor_ValidSize_ShouldSetSize()
     {
-        var map = new SmallSquareMap(10);
-        Assert.Equal(10, map.Size);
+        int sizeX = 10;
+        int sizeY = 12;
+        var map = new SmallTorusMap(sizeX, sizeY);
+        Assert.Equal(sizeX, map.SizeX);
+        Assert.Equal(sizeY, map.SizeY);
     }
     [Theory]
-    [InlineData(4)]
-    [InlineData(21)]
-    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int size)
+    [InlineData(4,4)]
+    [InlineData(21,21)]
+    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int sizeX, int sizeY)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(size));
+        Assert.Throws<ArgumentOutOfRangeException>(() =>  new SmallTorusMap(sizeX, sizeY));
     }
     [Theory]
-    [InlineData(5, 5, true)]
-    [InlineData(-1, 0, false)]
-    [InlineData(0, 10, false)]
-    [InlineData(9, 9, true)]
-    public void Exist_ShouldReturnCorrectValues(int x, int y, bool expected)
-    {
-        var map = new SmallSquareMap(10);
-        Assert.Equal(expected, map.Exist(new Point(x, y)));
+    [InlineData(3, 4, 5, 5, true)]
+    [InlineData(6, 1, 5, 5, false)]
+    [InlineData(19, 19, 20, 20, true)]
+    [InlineData(20, 20, 20, 20, false)]
+    public void Exist_ShouldReturnCorrectValues(int x, int y, int sizeX, int sizeY, bool expected)
+        // Arrange
+        var map = new SmallTorusMap(sizeX, sizeY);
+        var point = new Point(x, y);
+        // Act
+        var result = map.Exist(point);
+         var result = map.Exist(point);
+        // Assert
+        Assert.Equal(expected, result);
     }
     [Theory]
-    [InlineData(0, 0, Direction.Right, 1, 0)]
-    [InlineData(0, 0, Direction.Up, 0, 1)]
-    [InlineData(0, 0, Direction.Down, 0, 0)]
+    [InlineData(5, 10, Direction.Up, 5, 11)]
+    [InlineData(0, 0, Direction.Down, 0, 19)]
+    [InlineData(0, 8, Direction.Left, 19, 8)]
+    [InlineData(19, 10, Direction.Right, 0, 10)]
     public void Next_ShouldReturnCorrectValues(int x, int y, Direction d, int expectedX, int expectedY)
     {
-        var map = new SmallSquareMap(10);
-        var nextPoint = map.Next(new Point(x, y), d);
+        var map = new SmallTorusMap(20, 20);
+        var point = new Point(x, y);
+        var nextPoint = map.Next(point, direction);
         Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
     [Theory]
-    [InlineData(9, 0, Direction.Up, 9, 0)]    
-    [InlineData(9, 0, Direction.Left, 8, 1)]
-    [InlineData(0, 0, Direction.Left, 0, 0)] 
-    [InlineData(5, 5, Direction.Right, 6, 4)] 
-    [InlineData(5, 5, Direction.Down, 4, 4)]  
+    [InlineData(5, 10, Direction.Up, 6, 11)]
+    [InlineData(0, 0, Direction.Down, 19, 19)]
+    [InlineData(0, 8, Direction.Left, 19, 9)]
+    [InlineData(19, 10, Direction.Right, 0, 9)]
     public void NextDiagonal_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
-        var map = new SmallSquareMap(10);
+        var map = new SmallTorusMap(20, 20);
         var point = new Point(x, y);
         var result = map.NextDiagonal(point, direction);
-        Assert.Equal(new Point(expectedX, expectedY), result);
+        Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
-}

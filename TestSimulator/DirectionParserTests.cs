@@ -11,7 +11,7 @@ public class DirectionParserTests
         var result = DirectionParser.Parse(input);
         // Assert
         Assert.Equal([Direction.Up, Direction.Right,
-            Direction.Down, Direction.Left],
+             Direction.Down, Direction.Left],
             result
         );
     }
@@ -43,7 +43,7 @@ public class DirectionParserTests
         Direction.Down, Direction.Left })]
     [InlineData("xxxdR lyyLTyu", new[] { Direction.Down,
          Direction.Right, Direction.Left, Direction.Left,
-         Direction.Up })]
+     Direction.Up })]
     public void Parse_ShouldIgnoreInvalidCharacters(string s,
         Direction[] expected)
     {

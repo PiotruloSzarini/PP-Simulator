@@ -1,4 +1,5 @@
 ﻿using Simulator;
+namespace TestSimulator;
 public class PointTests
 {
     [Fact]
