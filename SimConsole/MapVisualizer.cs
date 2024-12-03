@@ -29,14 +29,7 @@ public class MapVisualizer
                 else if (creatures.Count == 1)
                 {
                     var creature = creatures[0];
-                    if (creature is Elf)
-                    {
-                        Console.Write('E');
-                    }
-                    else if (creature is Orc)
-                    {
-                        Console.Write('O');
-                    }
+                    Console.Write($"{creature.Symbol}");
                 }
                 else
                 {

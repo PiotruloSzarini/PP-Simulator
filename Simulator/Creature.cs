@@ -45,7 +45,7 @@ public abstract class Creature : IMappable
          Map.Move((IMappable)this, Position, nextPosition); // Przemieszczanie stworów
         Position = nextPosition;
     }
-    public abstract string Info { get; }
+    public abstract char Symbol { get; }
      public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
      
 }
