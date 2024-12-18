@@ -7,7 +7,7 @@ public abstract class Map
     public int SizeX { get; }
     public int SizeY { get; }
     private Rectangle boundaries;
-     protected abstract List<IMappable>?[,] Fields { get; }
+    private Dictionary<Point, List<IMappable>> mappablesFields = new Dictionary<Point, List<IMappable>>();
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>
@@ -32,32 +32,41 @@ public abstract class Map
     /// <param name="d">Direction.</param>
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
-     public virtual void Add(IMappable mappable, Point point)
-    {
-        if (!Exist(point))
-            throw new ArgumentException($"Punkt {point} jest poza granicami mapy.");
-         Fields[point.X, point.Y] ??= new List<IMappable>();
-        Fields[point.X, point.Y]?.Add(mappable);
-    }
-    public virtual void Remove(IMappable mappable, Point point)
-    {
-        if (Fields[point.X, point.Y] != null)
-        {
-            Fields[point.X, point.Y]?.Remove(mappable);
-            if (Fields[point.X, point.Y]?.Count == 0)
-                Fields[point.X, point.Y] = null;
-        }
-    }
-      public virtual void Move(IMappable mappable, Point from, Point to)
+    public virtual void Move(IMappable mappable, Point from, Point to)
     {
         Remove(mappable, from);
         Add(mappable, to);
     }
-    public virtual List<IMappable> At(Point point)
+    public void Add(IMappable mappable, Point point)
     {
-        return Fields[point.X, point.Y] ?? new List<IMappable>();
+        if (!Exist(point))
+            throw new ArgumentException($"Punkt {point} jest poza granicami mapy.");
+        if (!mappablesFields.ContainsKey(point))
+        {
+            mappablesFields[point] = new List<IMappable>();
+        }
+      mappablesFields[point].Add(mappable);
     }
-    public virtual List<IMappable> At(int x, int y)
+      public void Remove(IMappable mappable, Point point)
+    {
+        if (mappablesFields.ContainsKey(point))
+        {
+            mappablesFields[point].Remove(mappable);
+            if (mappablesFields[point].Count == 0)
+            {
+                mappablesFields.Remove(point);
+            }
+        }
+    }
+    public List<IMappable> At(Point point)
+    {
+          if (mappablesFields.ContainsKey(point))
+        {
+            return mappablesFields[point];
+        }
+        return new List<IMappable>();
+    }
+     public List<IMappable> At(int x, int y)
     {
         return At(new Point(x, y));
     }

@@ -12,12 +12,6 @@ public class MapVisualizer
     {
         DrawMap(_map);
     }
-     public void Draw(SimulationState state)
-    {
-        // Tworzymy kopię mapy na podstawie stanu symulacji
-        var tempMap = new TempMap(_map.SizeX, _map.SizeY, state.MappableStates);
-        DrawMap(tempMap);
-    }
     private void DrawMap(Map map)
     {
         Console.Write(Box.TopLeft);

@@ -1,5 +1,4 @@
-using SimConsole;
-using Simulator.Maps;
+﻿using Simulator.Maps;
 namespace Simulator;
 public class Simulation
 {
