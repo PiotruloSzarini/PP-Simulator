@@ -13,16 +13,20 @@ class Program
         string moves = "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr";
         Simulation simulation = new(map, mappables, points, moves);
         MapVisualizer mapVisualizer = new(simulation.Map);
-        while (!simulation.Finished)
-        {
-            mapVisualizer.Draw();
-            Console.WriteLine("\nPress any key to make a move...");
-            Console.ReadKey(true);
-            simulation.Turn();
-
-            Console.Clear();
-        }
-        mapVisualizer.Draw();
-        Console.WriteLine("\nSimulation finished!");
+        SimulationHistory history = new(simulation);
+        LogVisualizer logVisualizer = new(history);
+        //while (!simulation.Finished)
+        //{
+        //    mapVisualizer.Draw();
+        //    Console.WriteLine("\nPress any key to make a move...");
+        //    Console.ReadKey(true);
+        //    simulation.Turn();
+        //    Console.Clear();
+        //}
+        //mapVisualizer.Draw();
+        //Console.WriteLine("\nSimulation finished!");
+        logVisualizer.Draw(4);
+        Console.ReadKey(true);
+        logVisualizer.Draw(9);
     }
 }
